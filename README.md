@@ -1,88 +1,185 @@
-# C# Version 8.0 – Feature Samples
+# C# 8 Features – Sample Projects
 
-This solution contains **mini-projects (P122–P136)**, each demonstrating a new language feature introduced in **C# 8.0** (Visual Studio 2019, .NET Core 3.0 / .NET 5+).
-
----
-
-## Feature Index
-
-### Struct & Interface Improvements
-- **P122_ReadonlyMembers**  
-  Demonstrates `readonly` members in structs. Prevents accidental copies and enforces immutability.
-
-- **P123_DefaultInterfaceMethods**  
-  Interfaces can now contain methods with a default implementation.
+This repository contains hands-on examples of the new features introduced in **C# version 8** (released with .NET Core 3.0 / .NET 5).  
+Each project (`P122`, `P123`, …) illustrates one feature with runnable code.
 
 ---
 
-### Pattern Matching Enhancements
-- **P124_SwitchExpressions**  
-  Concise `switch` expressions with expression-bodied syntax.
+## 🚀 New Features in C# 8
 
-- **P125_PropertyTuplePositionalPatterns**  
-  Shows property patterns (`{ Age: >= 18 }`), tuple patterns (`(x, y)`), and positional patterns (via `Deconstruct`).
+### 1) Readonly members in structs (`P122_ReadonlyMembers`)
+- **What’s new**: Mark struct instance members as `readonly` to guarantee they don’t mutate state (reduces defensive copies).  
+- **Example**:
+  ```csharp
+  struct Meter
+  {
+      public double Value { get; }
+      public Meter(double v) => Value = v;
+      public readonly override string ToString() => $"{Value} m";
+  }
+  ```
 
-- **P136_Patterns_Recap**  
-  Combined demo of property, tuple, and positional patterns.
+### 2) Default interface methods (`P123_DefaultInterfaceMethods`)
+- **What’s new**: Interfaces can provide method implementations without breaking existing implementers.  
+- **Example**:
+  ```csharp
+  interface ILogger
+  {
+      void Write(string msg);
+      void Info(string msg) => Write($"INFO: {msg}");
+  }
+  ```
+
+### 3) Switch expressions (`P124_SwitchExpressions`)
+- **What’s new**: Concise, expression-bodied `switch` with pattern matching.  
+- **Example**:
+  ```csharp
+  string Classify(int n) => n switch
+  {
+      < 0         => "neg",
+      0           => "zero",
+      > 0 and <10 => "small",
+      _           => "large"
+  };
+  ```
+
+### 4) Property / Tuple / Positional patterns (`P125_PropertyTuplePositionalPatterns`)
+- **What’s new**: Match on properties, tuples, and `Deconstruct`ed shapes.  
+- **Example**:
+  ```csharp
+  var ok = person is { Age: >= 18 } 
+        && (x, y) is (>= 0, >= 0);
+  ```
+
+### 5) Using declarations (`P126_UsingDeclarations`)
+- **What’s new**: `using var stream = ...;` disposes at end of scope—no braces needed.  
+- **Example**:
+  ```csharp
+  using var reader = File.OpenText("data.txt");
+  Console.WriteLine(await reader.ReadToEndAsync());
+  ```
+
+### 6) Static local functions (`P127_StaticLocalFunctions`)
+- **What’s new**: Local functions can be `static`, forbidding captures and enabling better perf.  
+- **Example**:
+  ```csharp
+  int Sum(int[] xs)
+  {
+      static int Add(int a, int b) => a + b;
+      return xs.Aggregate(0, Add);
+  }
+  ```
+
+### 7) Disposable ref structs (`P128_DisposableRefStructs`)
+- **What’s new**: `ref struct`/`readonly ref struct` types can implement `IDisposable` and be used in `using`.  
+- **Example**:
+  ```csharp
+  ref struct Buffer : IDisposable
+  {
+      private Span<byte> _span;
+      public Buffer(Span<byte> s) => _span = s;
+      public void Dispose() { /* return stack memory, etc. */ }
+  }
+  ```
+
+### 8) Nullable reference types (`P129_NullableReferenceTypes`)
+- **What’s new**: Annotate references with `?` and get compiler flow analysis to prevent `NullReferenceException`.  
+- **Example**:
+  ```csharp
+  string? maybe = Get();
+  Console.WriteLine(maybe?.Length);
+  ```
+
+### 9) Async streams (`P130_AsyncStreams`)
+- **What’s new**: Produce/consume asynchronous sequences with `IAsyncEnumerable<T>` and `await foreach`.  
+- **Example**:
+  ```csharp
+  async IAsyncEnumerable<int> Counter()
+  {
+      for (int i = 0; i < 3; i++) { await Task.Delay(50); yield return i; }
+  }
+
+  await foreach (var n in Counter()) Console.WriteLine(n);
+  ```
+
+### 10) Indices (`^`) and ranges (`..`) (`P131_IndicesAndRanges`)
+- **What’s new**: ^ from-end index and `..` slicing for arrays/spans/strings.  
+- **Example**:
+  ```csharp
+  var last = numbers[^1];
+  var middle = numbers[2..^2];
+  ```
+
+### 11) Null-coalescing assignment (`P132_NullCoalescingAssignment`)
+- **What’s new**: `x ??= value;` assigns only when `x` is null.  
+- **Example**:
+  ```csharp
+  Dictionary<string,string>? map = null;
+  (map ??= new()).Add("k", "v");
+  ```
+
+### 12) Unmanaged constructed types (`P133_UnmanagedConstructedTypes`)
+- **What’s new**: Generic type constrained with `where T : unmanaged` can itself be unmanaged when fields are unmanaged.  
+- **Example**:
+  ```csharp
+  struct Pair<T> where T : unmanaged { public T X, Y; }
+  ```
+
+### 13) `stackalloc` in nested expressions (`P134_StackallocNestedExpressions`)
+- **What’s new**: Use `stackalloc` inside other expressions (e.g., creating spans inline).  
+- **Example**:
+  ```csharp
+  Span<int> span = stackalloc[] { 1, 2, 3 };
+  var s = new ReadOnlySpan<int>(stackalloc[] { 4, 5, 6 });
+  ```
+
+### 14) Interpolated verbatim strings (`P135_InterpolatedVerbatimStrings`)
+- **What’s new**: You can use either `$@"..."` or `@$"..."`.  
+- **Example**:
+  ```csharp
+  var path = $@"C:\logs\{DateTime.Today:yyyyMMdd}.txt";
+  ```
+
+### 15) Patterns recap (`P136_Patterns_Recap`)
+- **What’s new**: Project combines property, tuple, and positional patterns into a single demo.  
 
 ---
 
-### Using & Local Functions
-- **P126_UsingDeclarations**  
-  `using var resource = ...;` disposes automatically at the end of scope.
+## 📂 Repository Structure
 
-- **P127_StaticLocalFunctions**  
-  Local functions can be declared `static` to prevent capturing variables.
-
-- **P128_DisposableRefStructs**  
-  `ref struct` types can now implement `Dispose` and be used with `using`.
-
----
-
-### Nullable, Async, and Data Features
-- **P129_NullableReferenceTypes**  
-  Nullable annotations (`string?`) with compiler flow analysis for null safety.
-
-- **P130_AsyncStreams**  
-  Asynchronous streams with `IAsyncEnumerable<T>` and `await foreach`.
-
----
-
-### Operators, Indices, and Ranges
-- **P131_IndicesAndRanges**  
-  Demonstrates the `^` (from-end) operator and `..` range slicing.
-
-- **P132_NullCoalescingAssignment**  
-  The `??=` operator for assigning a default value only if null.
+- `P122_ReadonlyMembers` → readonly struct members  
+- `P123_DefaultInterfaceMethods` → default interface implementations  
+- `P124_SwitchExpressions` → switch expressions  
+- `P125_PropertyTuplePositionalPatterns` → property/tuple/positional patterns  
+- `P126_UsingDeclarations` → using declarations  
+- `P127_StaticLocalFunctions` → static local functions  
+- `P128_DisposableRefStructs` → disposable `ref struct`  
+- `P129_NullableReferenceTypes` → nullable reference types  
+- `P130_AsyncStreams` → `IAsyncEnumerable<T>` and `await foreach`  
+- `P131_IndicesAndRanges` → `^` and `..`  
+- `P132_NullCoalescingAssignment` → `??=`  
+- `P133_UnmanagedConstructedTypes` → unmanaged constructed generics  
+- `P134_StackallocNestedExpressions` → `stackalloc` in nested expressions  
+- `P135_InterpolatedVerbatimStrings` → interpolated verbatim strings  
+- `P136_Patterns_Recap` → pattern matching recap  
 
 ---
 
-### Advanced Unsafe / Memory Features
-- **P133_UnmanagedConstructedTypes**  
-  Generic types constrained with `where T : unmanaged`.  
-  (Requires `unsafe`.)
+## 🔧 Requirements
 
-- **P134_StackallocNestedExpressions**  
-  `stackalloc` arrays used inside nested expressions (e.g., `new Span<int>(stackalloc ... )`).
+- .NET Core 3.0+ / .NET 5 SDK  
+- C# 8 language version  
 
----
-
-### Strings
-- **P135_InterpolatedVerbatimStrings**  
-  Both `$@"..."` and `@$"..."` forms supported for interpolated verbatim strings.
-
----
-
-## How to Run
-1. Open solution `CSharpV80_Features.sln` in Visual Studio 2022+ (or VS Code).  
-2. Select a project (P122–P136) as startup project.  
-3. Run with `Ctrl+F5`.  
-
-Or run from command line:
+To build & run a sample:
 ```bash
+dotnet restore
+dotnet build
 dotnet run --project P130_AsyncStreams
 ```
 
 ---
 
-👉 Each project is self-contained and shows a minimal but complete program demonstrating the feature.
+## 📖 References
+
+- [What’s new in C# 8.0 – Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8)  
+- [.NET Blog: Building C# 8.0](https://devblogs.microsoft.com/dotnet/building-c-8-0/)  
