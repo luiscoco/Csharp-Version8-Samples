@@ -1,4 +1,4 @@
-# C# 8 Features – Sample Projects
+# C# 8 Features - Sample Projects
 
 This repository contains hands-on examples of the new features introduced in **C# version 8** (released with .NET Core 3.0 / .NET 5).  
 Each project P126 - P140 illustrates one feature with runnable code.
