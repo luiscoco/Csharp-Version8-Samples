@@ -19,7 +19,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   }
   ```
 
-### 2) Default interface methods (`P123_DefaultInterfaceMethods`)
+### P127_DefaultInterfaceMethods
 - **What’s new**: Interfaces can provide method implementations without breaking existing implementers.  
 - **Example**:
   ```csharp
@@ -30,7 +30,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   }
   ```
 
-### 3) Switch expressions (`P124_SwitchExpressions`)
+### P128_SwitchExpressions
 - **What’s new**: Concise, expression-bodied `switch` with pattern matching.  
 - **Example**:
   ```csharp
@@ -43,7 +43,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   };
   ```
 
-### 4) Property / Tuple / Positional patterns (`P125_PropertyTuplePositionalPatterns`)
+### P129_PropertyTuplePositionalPatterns
 - **What’s new**: Match on properties, tuples, and `Deconstruct`ed shapes.  
 - **Example**:
   ```csharp
@@ -51,7 +51,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
         && (x, y) is (>= 0, >= 0);
   ```
 
-### 5) Using declarations (`P126_UsingDeclarations`)
+### P130_UsingDeclarations
 - **What’s new**: `using var stream = ...;` disposes at end of scope—no braces needed.  
 - **Example**:
   ```csharp
@@ -59,7 +59,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   Console.WriteLine(await reader.ReadToEndAsync());
   ```
 
-### 6) Static local functions (`P127_StaticLocalFunctions`)
+### P131_StaticLocalFunctions
 - **What’s new**: Local functions can be `static`, forbidding captures and enabling better perf.  
 - **Example**:
   ```csharp
@@ -70,7 +70,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   }
   ```
 
-### 7) Disposable ref structs (`P128_DisposableRefStructs`)
+### P132_DisposableRefStructs
 - **What’s new**: `ref struct`/`readonly ref struct` types can implement `IDisposable` and be used in `using`.  
 - **Example**:
   ```csharp
@@ -82,7 +82,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   }
   ```
 
-### 8) Nullable reference types (`P129_NullableReferenceTypes`)
+### P133_NullableReferenceTypes
 - **What’s new**: Annotate references with `?` and get compiler flow analysis to prevent `NullReferenceException`.  
 - **Example**:
   ```csharp
@@ -90,7 +90,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   Console.WriteLine(maybe?.Length);
   ```
 
-### 9) Async streams (`P130_AsyncStreams`)
+### P134_AsyncStreams
 - **What’s new**: Produce/consume asynchronous sequences with `IAsyncEnumerable<T>` and `await foreach`.  
 - **Example**:
   ```csharp
@@ -102,7 +102,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   await foreach (var n in Counter()) Console.WriteLine(n);
   ```
 
-### 10) Indices (`^`) and ranges (`..`) (`P131_IndicesAndRanges`)
+### P135_IndicesAndRanges
 - **What’s new**: ^ from-end index and `..` slicing for arrays/spans/strings.  
 - **Example**:
   ```csharp
@@ -110,7 +110,7 @@ Each project P126 - P140 illustrates one feature with runnable code.
   var middle = numbers[2..^2];
   ```
 
-### 11) Null-coalescing assignment (`P132_NullCoalescingAssignment`)
+### P136_NullCoalescingAssignment
 - **What’s new**: `x ??= value;` assigns only when `x` is null.  
 - **Example**:
   ```csharp
@@ -118,14 +118,14 @@ Each project P126 - P140 illustrates one feature with runnable code.
   (map ??= new()).Add("k", "v");
   ```
 
-### 12) Unmanaged constructed types (`P133_UnmanagedConstructedTypes`)
+### P137_UnmanagedConstructedTypes
 - **What’s new**: Generic type constrained with `where T : unmanaged` can itself be unmanaged when fields are unmanaged.  
 - **Example**:
   ```csharp
   struct Pair<T> where T : unmanaged { public T X, Y; }
   ```
 
-### 13) `stackalloc` in nested expressions (`P134_StackallocNestedExpressions`)
+### P138_StackallocNestedExpressions
 - **What’s new**: Use `stackalloc` inside other expressions (e.g., creating spans inline).  
 - **Example**:
   ```csharp
@@ -133,14 +133,14 @@ Each project P126 - P140 illustrates one feature with runnable code.
   var s = new ReadOnlySpan<int>(stackalloc[] { 4, 5, 6 });
   ```
 
-### 14) Interpolated verbatim strings (`P135_InterpolatedVerbatimStrings`)
+### P139_InterpolatedVerbatimStrings
 - **What’s new**: You can use either `$@"..."` or `@$"..."`.  
 - **Example**:
   ```csharp
   var path = $@"C:\logs\{DateTime.Today:yyyyMMdd}.txt";
   ```
 
-### 15) Patterns recap (`P136_Patterns_Recap`)
+### P140_Patterns_Recap
 - **What’s new**: Project combines property, tuple, and positional patterns into a single demo.  
 
 ---
