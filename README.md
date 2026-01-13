@@ -1,13 +1,13 @@
 # C# 8 Features – Sample Projects
 
 This repository contains hands-on examples of the new features introduced in **C# version 8** (released with .NET Core 3.0 / .NET 5).  
-Each project (`P122`, `P123`, …) illustrates one feature with runnable code.
+Each project P126 - P140 illustrates one feature with runnable code.
 
 ---
 
-## 🚀 New Features in C# 8
+## New Features in C# 8
 
-### 1) Readonly members in structs (`P122_ReadonlyMembers`)
+### P126_ReadonlyMembers
 - **What’s new**: Mark struct instance members as `readonly` to guarantee they don’t mutate state (reduces defensive copies).  
 - **Example**:
   ```csharp
@@ -145,27 +145,27 @@ Each project (`P122`, `P123`, …) illustrates one feature with runnable code.
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
-- `P122_ReadonlyMembers` → readonly struct members  
-- `P123_DefaultInterfaceMethods` → default interface implementations  
-- `P124_SwitchExpressions` → switch expressions  
-- `P125_PropertyTuplePositionalPatterns` → property/tuple/positional patterns  
-- `P126_UsingDeclarations` → using declarations  
-- `P127_StaticLocalFunctions` → static local functions  
-- `P128_DisposableRefStructs` → disposable `ref struct`  
-- `P129_NullableReferenceTypes` → nullable reference types  
-- `P130_AsyncStreams` → `IAsyncEnumerable<T>` and `await foreach`  
-- `P131_IndicesAndRanges` → `^` and `..`  
-- `P132_NullCoalescingAssignment` → `??=`  
-- `P133_UnmanagedConstructedTypes` → unmanaged constructed generics  
-- `P134_StackallocNestedExpressions` → `stackalloc` in nested expressions  
-- `P135_InterpolatedVerbatimStrings` → interpolated verbatim strings  
-- `P136_Patterns_Recap` → pattern matching recap  
+- `P126_ReadonlyMembers` → readonly struct members  
+- `P127_DefaultInterfaceMethods` → default interface implementations  
+- `P128_SwitchExpressions` → switch expressions  
+- `P129_PropertyTuplePositionalPatterns` → property/tuple/positional patterns  
+- `P130_UsingDeclarations` → using declarations  
+- `P131_StaticLocalFunctions` → static local functions  
+- `P132_DisposableRefStructs` → disposable `ref struct`  
+- `P133_NullableReferenceTypes` → nullable reference types  
+- `P134_AsyncStreams` → `IAsyncEnumerable<T>` and `await foreach`  
+- `P135_IndicesAndRanges` → `^` and `..`  
+- `P136_NullCoalescingAssignment` → `??=`  
+- `P137_UnmanagedConstructedTypes` → unmanaged constructed generics  
+- `P138_StackallocNestedExpressions` → `stackalloc` in nested expressions  
+- `P139_InterpolatedVerbatimStrings` → interpolated verbatim strings  
+- `P140_Patterns_Recap` → pattern matching recap  
 
 ---
 
-## 🔧 Requirements
+## Requirements
 
 - .NET Core 3.0+ / .NET 5 SDK  
 - C# 8 language version  
@@ -179,7 +179,7 @@ dotnet run --project P130_AsyncStreams
 
 ---
 
-## 📖 References
+## References
 
 - [What’s new in C# 8.0 – Microsoft Learn](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-8)  
 - [.NET Blog: Building C# 8.0](https://devblogs.microsoft.com/dotnet/building-c-8-0/)  
